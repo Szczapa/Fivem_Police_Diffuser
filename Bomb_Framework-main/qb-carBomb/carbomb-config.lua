@@ -8,6 +8,8 @@ Config.DetonationType = 4
 
 Config.TimeTakenToArm = 4000 -- en ms 
 
+Config.TimeToCheck = 4000 -- en ms 
+
 Config.TimeUntilDetonation = 60 -- Timer bombe sous véhicle en seconde
 
 Config.TimeUntilDetonation2 = 30  -- Timer une fois assis en seconde
