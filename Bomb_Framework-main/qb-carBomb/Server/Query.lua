@@ -64,3 +64,13 @@ QBCore.Functions.CreateCallback('CheckIfArmed', function(source, cb)
     end)
 end)
 
+QBCore.Functions.CreateCallback('CheckbombType', function(source, cb)
+ MySQL.Query('SELECT bombType FROM vehicule_armed WHERE plate = ? AND bombStatut = 2 OR bombstatut = 3', {vPlate}, function(bombType)
+        if bombType then
+        cb (bombType.bombType)
+        else
+        cb (0)
+        end
+    end)
+end)
+

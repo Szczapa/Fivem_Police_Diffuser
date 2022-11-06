@@ -20,3 +20,8 @@ Config.maxSpeed = 91 -- Explosion a cette vitesse
 
 Config.minSpeed = 85 -- Vitesse système en dessous d'une vitesse
 
+function Config.OnDiffuseDone(success, vPlate)
+    TriggerEvent('mhacking:hide')
+    if not success then return end
+    TriggerServerEvent('DiffuseArmedV', vPlate)
+end
