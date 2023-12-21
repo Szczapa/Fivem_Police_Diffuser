@@ -26,5 +26,8 @@ Ajout du système LSPD avec intégration de système de désamorçage
 Les bombe fonctionne désormais entre chaque redémarrage serveur avec une mise en sauvegarde sous forme de base de donnée Mysql et d'une table 
 
 
-Preview Version 1.1 
-La table est automatiquement créé au démarrage du script si celle ci n'existe pas.
+Roadmap Version 1.1
+
+- La table vehicule_armed sera automatiquement créé au démarrage du script si celle ci n'existe pas.
+- Optimisation des thread pour consommer moin de ressource
+- Rework et optimisation du calcul de minuterie
