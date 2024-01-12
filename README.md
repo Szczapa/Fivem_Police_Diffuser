@@ -27,7 +27,5 @@ Les bombe fonctionne désormais entre chaque redémarrage serveur avec une mise 
 
 
 Roadmap Version 1.1
-
-- La table vehicule_armed sera automatiquement créé au démarrage du script si celle ci n'existe pas.
-- Optimisation des thread pour consommer moin de ressource
 - Rework et optimisation du calcul de minuterie
+- Changement du système de requête. L'objectif est de passer sur un fichier Json plus tot que de converser avec la base de donnée pour avoir des actualisations. 
