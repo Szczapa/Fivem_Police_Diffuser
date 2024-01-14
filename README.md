@@ -1,6 +1,9 @@
 # Bomb_Framework
 
-Alpha 0.1
+
+## Roadmap et évolution 
+
+#### Alpha 0.1
 
 Projet pour serveur Role play, Système de bombe pour groupe illégaux.
 
@@ -9,12 +12,11 @@ Création de 6 types de bombe indépendante
 - Bombe à télécommande
 - Bombe à Timer
 - Bombe démarrage moteur
-- Bombe démarrage moteur + timer ( en cours de développement )
 - Bombe Dépassement vitesse
 - Bombe vitesse vérouillé ( interdiction de descendre sous une certaine vitesse)
 
 
-Version 1.0 
+#### Version 1.1 (actuelle)
 
 Ajout du système LSPD avec intégration de système de désamorçage
 
@@ -22,10 +24,19 @@ Ajout du système LSPD avec intégration de système de désamorçage
 - Kit de désamorçage
 - Intégration du mini jeu de code 
 - Système d'alerte
-
-Les bombe fonctionne désormais entre chaque redémarrage serveur avec une mise en sauvegarde sous forme de base de donnée Mysql et d'une table 
-
-
-Roadmap Version 1.1
-- Rework et optimisation du calcul de minuterie
 - Changement du système de requête. L'objectif est de passer sur un fichier Json plus tot que de converser avec la base de donnée pour avoir des actualisations. 
+
+Les bombe fonctionne désormais entre chaque redémarrage serveur avec une mise en sauvegarde sous forme de fichier json.
+
+
+#### Roadmap Version 1.2
+- Rework et optimisation du fonctionnement et nettoyage de code en prévision de la 2.0
+- Bombe démarrage moteur + timer ( en cours de développement )
+- Correction du path du fichier json
+
+#### Roadmap version 2.0 
+ Visuel mini jeu personnalisé (vuejs) pour les désarmorçages.
+
+
+## Auteurs
+- Créateur : [@Szczapa](https://github.com/Szczapa)
