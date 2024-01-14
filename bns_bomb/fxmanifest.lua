@@ -4,17 +4,17 @@ game 'gta5'
 description 'QB-CarBomb'
 version '1.0.0'
 
-shared_script 'Config.lua'
-
-client_scripts {
-    'Client/bomb.lua',
-    'Client/Client_function.lua' 
+shared_script {
+    'Config.lua',
+    'Save/Json.lua'
 }
 
-server_scripts {
-    '@oxmysql/lib/MySQL.lua',    
-    'Server/Query.lua',
-    'Server/Usable_item.lua',
+client_scripts {
+    'Client/*.lua'   
+}
+
+server_scripts {   
+    'Server/*.lua'   
 } 
 
 lua54 'yes'

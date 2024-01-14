@@ -1,8 +1,8 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+
 local IsBomb = false
 
 function OnDiffuseDone(success)
-
   TriggerEvent('mhacking:hide')
   if not success then return end
   TriggerEvent('DiffuserArmedV',source)
@@ -15,8 +15,7 @@ RegisterNetEvent('DiffuserArmedV',function(source)
   local vCoords = GetEntityCoords(veh)
   local vPlate = QBCore.Functions.GetPlate(veh)
   print(vPlate,'police_f')
-  TriggerServerEvent('DiffuseArmedV',vPlate)
-
+  TriggerServerEvent('DiffuseStatus',vPlate)
 end)
 
 RegisterNetEvent('QbCarbomb:client:PoliceScanner',function()
@@ -45,17 +44,17 @@ RegisterNetEvent('QbCarbomb:client:PoliceScanner',function()
                     elseif cb == 4 then
                       QBCore.Functions.Notify("Bombe accéléromètre détecté", "error")
                     elseif cb ==5 then
-                      QBCore.Functions.Notify("bomb présence + timer détecté", "error")
+                      QBCore.Functions.Notify("Bombe présente", "error")
                     elseif cb == 6 then                      
-                      QBCore.Functions.TriggerCallback('CheckTime', function(cb)
+                      QBCore.Functions.TriggerCallback('CheckRemainingTime', function(cb)
                         QBCore.Functions.Notify("Bombe à Timer détecté "..cb.." Secondes Restantes", "error")
                       end, vPlate)
                     elseif cb == 7 then                      
-                      QBCore.Functions.TriggerCallback('CheckTime', function(cb)                        
+                      QBCore.Functions.TriggerCallback('CheckRemainingTime', function(cb)                        
                         QBCore.Functions.Notify("Engin Factice détecté "..cb.." Secondes Restantes", "error")                        
                       end, vPlate)
                     end
-                    QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+                    QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
                       if cb ~= nil then                
                         QBCore.Functions.Notify("Engin armée", "error")
                       else
@@ -97,10 +96,10 @@ RegisterNetEvent('QbCarbomb:client:PoliceDiffuser',function()
                 disableMouse = false,
             }, {},{},{}, function()  
 
-            QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+            QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
                 if cb ~= nil then                
                     TriggerEvent("mhacking:show")
-                    TriggerEvent("mhacking:start", 8, 15, OnDiffuseDone)
+                    TriggerEvent("mhacking:start", 4, 15, OnDiffuseDone)
                 else
                     QBCore.Functions.Notify("Engin inactif", "error")
                 end
@@ -135,11 +134,11 @@ RegisterNetEvent('QbCarbomb:client:Demontage',function()
                 disableMovement = true,
                 disableMouse = false,
             }, {},{},{}, function()
-              QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+              QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
                 if cb ~= nil then                                 
                   QBCore.Functions.Notify("Engin armée récupération impossible", "error")
                 else
-                  TriggerServerEvent('CheckbombType',vPlate) 
+                    TriggerServerEvent('CheckbombType',vPlate) 
                     QBCore.Functions.Notify("Engin Récupéré", "success")
                 end
             end, vPlate)              
@@ -157,4 +156,3 @@ RegisterNetEvent('QbCarbomb:client:Demontage',function()
         QBCore.Functions.Notify("Sortez du véhicule ...", "error")
       end
 end)
-

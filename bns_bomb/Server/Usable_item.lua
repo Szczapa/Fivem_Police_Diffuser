@@ -42,3 +42,30 @@ QBCore.Functions.CreateUseableItem("bomb_remote", function(source)
     TriggerClientEvent("QbCarbomb:client:Pose",source,"bomb_remote")   
     
 end)
+
+----- Police ----
+
+-- Détecteur de bombe
+QBCore.Functions.CreateUseableItem("scanner_tool", function(source)    
+    TriggerClientEvent("QbCarbomb:client:PoliceScanner",source, "scanner_tool")
+    local Player = QBCore.Functions.GetPlayer(source)       
+end)
+
+-- Désamorçage de bombe
+QBCore.Functions.CreateUseableItem("diffuser", function(source)    
+    TriggerClientEvent("QbCarbomb:client:PoliceDiffuser",source, "diffuser")
+    local Player = QBCore.Functions.GetPlayer(source)
+end)
+
+-- Demontage de bombe
+QBCore.Functions.CreateUseableItem("kit_demontage", function(source)    
+    TriggerClientEvent("QbCarbomb:client:Demontage",source, "kit_demontage")
+    local Player = QBCore.Functions.GetPlayer(source)
+end)
+
+-- Bombe d'entrainement
+QBCore.Functions.CreateUseableItem("training_bomb", function(source)    
+    TriggerClientEvent("QbCarbomb:client:Pose",source, "training_bomb")
+    local Player = QBCore.Functions.GetPlayer(source)
+    Player.Functions.RemoveItem('training_bomb', 1)
+end)

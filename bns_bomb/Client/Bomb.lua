@@ -23,47 +23,47 @@ RegisterNetEvent("QbCarbomb:client:Pose",function(item)
                 if item == "bomb_remote" then
                   local bombType = 1
                   QBCore.Functions.Notify("Explosion à l'appuis", "error") 
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)                              
                   WaitClick (source,armedVeh,vPlate)
                   ClearPedTasks(ped)                
                 elseif item == "bomb_open" then
                   local bombType = 2
                   QBCore.Functions.Notify("Explosion à l'ouverture", "error")                
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)                              
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)                              
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)
                   -- WaitOpen(source,armedVeh,vPlate)
                   ClearPedTasks(ped)
                 elseif item == "bomb_underspeed" then
                   local bombType = 3
                   QBCore.Functions.Notify("Vitesse activation "..Config.minSpeed .. "kmh", "error")                 
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)                              
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)                              
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)
                   -- WaitLockSpeed(source,armedVeh,vPlate)
                   ClearPedTasks(ped)
                 elseif item == "bomb_speed" then
                   local bombType = 4
                   QBCore.Functions.Notify("Vitesse nécessaire pour explosion "..Config.maxSpeed.."kmh", "error")                 
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)                              
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)                              
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)
                   -- WaitMaxSpeed(source,armedVeh,vPlate)
                   ClearPedTasks(ped)
                 elseif item == "bomb_sittimer" then
                    --local bombType = 5
-                   --TriggerServerEvent('AddArmedV',vPlate, bombType, 1)
+                   --TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)
                    --TriggerServerEvent('RandomAlerte',source,vPlate)
                    print("inactif")
                 elseif item == "bomb_timer" then
                    local bombType = 6
                   QBCore.Functions.Notify("Explosion dans: "..Config.TimeUntilDetonation.." Secondes", "error")                 
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)                 
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)                 
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)
                   RunTimer(source,armedVeh,vPlate)
                   ClearPedTasks(ped)                               
                 elseif item == "training_bomb" then
                    local bombType = 7
                   QBCore.Functions.Notify("Explosion dans: "..Config.TimeUntilDetonation.." Secondes", "error")                 
-                  TriggerServerEvent('AddArmedV',vPlate, bombType, 1)                 
+                  TriggerServerEvent('ArmedStatus',vPlate, bombType, 1)                 
                   TriggerEvent('RandomAlerte',source,vPlate,vCoords)
                   RunTraining(source,armedVeh,vPlate)
                   ClearPedTasks(ped)

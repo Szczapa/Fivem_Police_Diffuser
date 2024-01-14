@@ -4,7 +4,7 @@ local QBCore = exports['qb-core']:GetCoreObject()
 function DetonateVehicle(veh)
     local vCoords = GetEntityCoords(veh)
     if DoesEntityExist(veh) then
-        TriggerEvent('ExplosionAlerte',source,vCoords)
+        -- TriggerEvent('ExplosionAlerte',source,vCoords)
         armedVeh = nil        
         AddExplosion(vCoords.x, vCoords.y, vCoords.z, 5, 50.0, true, false, true)        
     end
@@ -31,22 +31,22 @@ RegisterNetEvent('RandomAlerte',function(source,vPlate,vCoords)
     end
 end)
 
-RegisterNetEvent('ExplosionAlerte',function(source,vCoords)
-        local coord = vCoords
-        print(coord)
-        print('alerte send')
-        exports["ps-dispatch"]:CustomAlert({
-            coords = vector3(coord.x, coord.y, coord.z),
-            message = "Explosion véhicule",
-            dispatchCode = "10-4 On the way",
-            description = "Explosion de véhicule! ",
-            radius = 0,
-            sprite = 822,
-            color = 3,
-            scale = 1.0,
-            length = 3,
-        }) 
-end)
+-- RegisterNetEvent('ExplosionAlerte',function(source,vCoords)
+--         local coord = vCoords
+--         print(coord)
+--         print('alerte send')
+--         exports["ps-dispatch"]:CustomAlert({
+--             coords = vector3(coord.x, coord.y, coord.z),
+--             message = "Explosion véhicule",
+--             dispatchCode = "10-4 On the way",
+--             description = "Explosion de véhicule! ",
+--             radius = 0,
+--             sprite = 822,
+--             color = 3,
+--             scale = 1.0,
+--             length = 3,
+--         }) 
+-- end)
 
 function WaitClick(source,veh,vPlate)
     local vPlate = vPlate
@@ -56,10 +56,10 @@ function WaitClick(source,veh,vPlate)
             Citizen.Wait(10)
             if armedVeh then
                 if IsControlJustReleased(0, Config.TriggerKey) then
-                    QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+                    QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
                         if cb ~= nil then
                             DetonateVehicle(armedVeh)
-                            TriggerServerEvent('ExploseBomb',vPlate)                        
+                            TriggerServerEvent('ExploseStatus',vPlate)                        
                             armedVeh = nil
                          else
                             QBCore.Functions.Notify("Système Désactivé", "error")
@@ -86,7 +86,7 @@ function WaitOpen(source,veh,vPlate)
         if armedVeh then
             if not IsVehicleSeatFree(armedVeh, -1)  then
                 --print('notfree-1')
-                QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb) 
+                QBCore.Functions.TriggerCallback('CheckStatus', function(cb) 
                     if cb ~= nil then              
                     DetonateVehicle(veh)
                     armedVeh = nil
@@ -97,10 +97,10 @@ function WaitOpen(source,veh,vPlate)
                 end, vPlate)                
             elseif not IsVehicleSeatFree(armedVeh, 0) then 
                 --print('notfree 0')
-                QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb) 
+                QBCore.Functions.TriggerCallback('CheckStatus', function(cb) 
                     if cb ~= nil then        
                         DetonateVehicle(veh)
-                        TriggerServerEvent('ExploseBomb',vPlate)
+                        TriggerServerEvent('ExploseStatus',vPlate)
                         armedVeh = nil
                     else
                         QBCore.Functions.Notify("Système Désactivé", "error")
@@ -121,10 +121,10 @@ function RunTimer(source, veh, vPlate)
             Citizen.Wait(1000)
         end
         
-        QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb) 
+        QBCore.Functions.TriggerCallback('CheckStatus', function(cb) 
             if cb ~= nil then 
                 DetonateVehicle(armedVeh)
-                TriggerServerEvent('ExploseBomb', vPlate)
+                TriggerServerEvent('ExploseStatus', vPlate)
                 armedVeh = nil
             else
                 QBCore.Functions.Notify("Système Désactivé", "error")
@@ -143,10 +143,10 @@ function RunTraining(source, veh, vPlate)
             timer = timer - 1            
             Citizen.Wait(1000)
         end        
-        QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+        QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
             if cb ~= nil then 
                 QBCore.Functions.Notify("Explosion de l'engin", "error")
-                TriggerServerEvent('ExploseBomb', vPlate)
+                TriggerServerEvent('ExploseStatus', vPlate)
                 armedVeh = nil
             else
                 QBCore.Functions.Notify("Système Désactivé", "error")
@@ -165,15 +165,15 @@ function WaitMaxSpeed(source,veh,vPlate)
     end
     local armedVeh = veh    
     while armedVeh do  
-        Citizen.Wait(0)
+        Citizen.Wait(5)
         if  armedVeh then
             local speed = GetEntitySpeed(armedVeh)
             local SpeedKMH = speed * 3.6
             if SpeedKMH >= Config.maxSpeed then
-                QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb) 
+                QBCore.Functions.TriggerCallback('CheckStatus', function(cb) 
                     if cb ~= nil then
                         DetonateVehicle(armedVeh)
-                        TriggerServerEvent('ExploseBomb',vPlate)
+                        TriggerServerEvent('ExploseStatus',vPlate)
                         armedVeh = nil
                     else
                         QBCore.Functions.Notify("Système Désactivé", "error")
@@ -207,11 +207,11 @@ function WaitLockSpeed(source,veh,vPlate)
             local speed = GetEntitySpeed(armedVeh)
             local SpeedKMH = speed * 3.6
             if SpeedKMH < Config.maxSpeed then  
-                QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb) 
+                QBCore.Functions.TriggerCallback('CheckStatus', function(cb) 
                     if cb ~= nil then
                         DetonateVehicle(armedVeh)
                         armed = nil
-                        TriggerServerEvent('ExploseBomb',vPlate)
+                        TriggerServerEvent('ExploseStatus',vPlate)
                         armedVeh = nil
                     else
                         QBCore.Functions.Notify("Système Désactivé", "error")
@@ -229,8 +229,7 @@ Citizen.CreateThread(function()
     local inVehicle = false
 
     while true do
-        Citizen.Wait(250) -- Vérifie l'état du joueur toutes les 250 ms
-
+        Citizen.Wait(500) -- Vérifie l'état du joueur toutes les 500 ms
         local playerPed = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(playerPed, false)
         local vPlate = QBCore.Functions.GetPlate(vehicle)
@@ -247,7 +246,6 @@ Citizen.CreateThread(function()
         else
             inVehicle = false
         end
-
         prevVehicle = vehicle
     end
 end)
@@ -257,7 +255,7 @@ function CheckPlayerEnter(vehicle,vPlate)
     local Player = PlayerPedId()
     local veh = vehicle
     local vPlate = vPlate
-    QBCore.Functions.TriggerCallback('CheckIfArmed', function(cb)
+    QBCore.Functions.TriggerCallback('CheckStatus', function(cb)
         if cb ~= nil then
             local status = cb.status
             local bombType = cb.bombType
@@ -270,15 +268,11 @@ function CheckPlayerEnter(vehicle,vPlate)
                     WaitMaxSpeed(source, veh, vPlate)
                 elseif bombType == 5 then
                     -- Code pour le type de bombe 5                
-                end
-            else
-                print("Non RAS")
-                Wait(250)
+                end           
             end
         else
-            print("RAS")
-            Wait(250)
-        end
+            print("RAS")           
+        end       
     end, vPlate)
 end
 
