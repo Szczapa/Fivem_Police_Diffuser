@@ -19,4 +19,4 @@ server_scripts {
 
 lua54 'yes'
 
-Authot 'Szczapa / BearNshow'
+Author 'Szczapa / BearNshow'
