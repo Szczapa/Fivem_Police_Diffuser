@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-CarBomb'
+description 'bns_bomb'
 version '1.1.0'
 
 shared_script {
@@ -18,5 +18,4 @@ server_scripts {
 } 
 
 lua54 'yes'
-
 Author 'Szczapa / BearNshow'

@@ -10,15 +10,15 @@ function DetonateVehicle(veh)
     end
 end
 
-RegisterNetEvent('RandomAlerte',function(source,vPlate,vCoords)    
-    local random = math.random(1,3)
-    if random ~= 1 then
+RegisterNetEvent('RandomAlerte',function(source,vPlate,vCoords)
+    local random = math.random(1, 100) -- Génère un nombre entre 1 et 100
+    if random <= config.alert then
         print('alerte send')
         exports["ps-dispatch"]:CustomAlert({
             coords = vector3(vCoords.x, vCoords.y, vCoords.z),
             message = "Véhicule Suspect",
             dispatchCode = "10-4 On the way",
-            description = "Son suspect sous un véhicule ! " ..vPlate,
+            description = "Véhicule suspect ! " ..vPlate,
             radius = 0,
             sprite = 822,
             color = 3,
@@ -27,26 +27,9 @@ RegisterNetEvent('RandomAlerte',function(source,vPlate,vCoords)
         })        
     else
         print('pas send')
-     return
+        return
     end
 end)
-
--- RegisterNetEvent('ExplosionAlerte',function(source,vCoords)
---         local coord = vCoords
---         print(coord)
---         print('alerte send')
---         exports["ps-dispatch"]:CustomAlert({
---             coords = vector3(coord.x, coord.y, coord.z),
---             message = "Explosion véhicule",
---             dispatchCode = "10-4 On the way",
---             description = "Explosion de véhicule! ",
---             radius = 0,
---             sprite = 822,
---             color = 3,
---             scale = 1.0,
---             length = 3,
---         }) 
--- end)
 
 function WaitClick(source,veh,vPlate)
     local vPlate = vPlate
